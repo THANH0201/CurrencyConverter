@@ -1,28 +1,22 @@
 package controller;
-import model.Currency;
+import dao.CurrencyDao;
+import entity.Currency;
 import view.CurrencyView;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CurrencyController {
-    private List<Currency> currencies;
-    private CurrencyView view;
-
+    private final CurrencyView view;
     public CurrencyController(CurrencyView view) {
         this.view = view;
-
-        currencies = List.of(
-                new Currency("USD", "US Dollar", 1.0),
-                new Currency("EUR", "Euro", 0.85),
-                new Currency("JPY", "Japanese Yen", 110.0),
-                new Currency("VND", "Viet Nam Dong", 27000)
-        );
-
-        view.getSource().getItems().addAll(currencies);
-        view.getTarget().getItems().addAll(currencies);
-
+        CurrencyDao currencyDao = new CurrencyDao();
+        List<Currency> currencies = currencyDao.getCurrencies();
+        if (currencies != null) {
+            view.getSource().getItems().addAll(currencies);
+            view.getTarget().getItems().addAll(currencies);
+        } else {
+            view.getError().setText("Error loading.");
+        }
         view.getConvert().setOnAction(e -> convert());
     }
 
@@ -37,15 +31,16 @@ public class CurrencyController {
                 return;
             }
             // reference: usd
-            double result = amount * target.getRate()/source.getRate();
+            double result = amount * source.getRate()/target.getRate();
 
             view.getResult().setText(String.format("%.2f", result));
             view.getResultUnitLabel().setText(target.getAbbreviation());
-            view.getError().setText("");
+            view.getError().setText("1 " + source.getAbbreviation() + " = " + String.format("%.2f",source.getRate()/target.getRate()) + " " + target.getAbbreviation());
         } catch (NumberFormatException ex) {
             view.getError().setText("Invalid amount. Please enter a number into Amount box.");
         }
     }
+
 }
 
 

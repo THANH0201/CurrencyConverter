@@ -1,25 +1,19 @@
 package view;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import controller.CurrencyController;
-import model.Currency;
+import entity.Currency;
 
-import javax.swing.*;
 import java.util.Objects;
 
 public class CurrencyView extends Application {
@@ -30,6 +24,7 @@ public class CurrencyView extends Application {
     private final ComboBox<Currency> source = new ComboBox<>();
     private final ComboBox<Currency> target= new ComboBox<>();
     private final Button convert = new Button("Convert");
+    private final Button rate = new Button("Search rate");
     private final Label label = new Label();
     private final Label resulUnitLabel = new Label();
     private final Label guide = new Label();
@@ -40,7 +35,7 @@ public class CurrencyView extends Application {
     //create data
     @Override
     public void init() {
-        CurrencyController currency = new CurrencyController(this);
+        new CurrencyController(this);
     }
     //create interface
     @Override
@@ -67,7 +62,11 @@ public class CurrencyView extends Application {
         grid.add(new Label("To Currency:"), 0, 3);
         grid.add(target, 1, 3);
 
-        grid.add(convert, 1, 4);
+        grid.add(convert,1,4);
+        //HBox hb = new HBox(10);
+        //hb.setAlignment(Pos.CENTER);
+        //hb.getChildren().addAll(convert,rate);
+        //grid.add(hb, 1, 4);
 
         grid.add(new Label("Result:"), 0, 5);
         grid.add(result, 1, 5);
@@ -111,7 +110,9 @@ public class CurrencyView extends Application {
     public Button getConvert() {
         return convert;
     }
-
+    public Button getSearchRate() {
+        return rate;
+    }
     public Label getLabel() {
         return label;
     }
