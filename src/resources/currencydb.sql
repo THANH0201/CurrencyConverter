@@ -7,10 +7,10 @@ USE queries;
 
 -- A statement for creating a table for storing the Currency objects.
 CREATE TABLE Currency (
-                          abbreviation VARCHAR(3) NOT NULL,
-                          name VARCHAR(50) NOT NULL,
-                          rate DECIMAL(5, 2) NOT NULL,
-                          PRIMARY KEY (abbreviation)
+      abbreviation VARCHAR(3) NOT NULL,
+      name VARCHAR(50) NOT NULL,
+      rate DECIMAL(5, 2) NOT NULL,
+      PRIMARY KEY (abbreviation)
 );
 
 -- Statements for populating the table with data. You should include at least eight currencies with up-to-date exchange rates in the table.
