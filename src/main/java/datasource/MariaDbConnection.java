@@ -13,10 +13,10 @@ public class MariaDbConnection {
             // connect if necessary
             try {
                 conn = DriverManager.getConnection(
-                        "jdbc:mariadb://localhost:3307/queries?user=appuser&password=123456");
+                        "jdbc:mariadb://invalidhost:3307/queries?user=appuser&password=123456");
             } catch (SQLException e) {
                 System.out.println("Connection failed.");
-                e.printStackTrace();
+                return null;
             }
             return conn;
         }

@@ -4,9 +4,9 @@ import entity.Currency;
 import java.sql.*;
 import datasource.MariaDbConnection;
 import java.util.*;
+import view.CurrencyView;
 
 public class CurrencyDao {
-
     public List<Currency> getCurrencies() {
         Connection conn = MariaDbConnection.getConnection();
         String sql = "SELECT abbreviation, name, rate FROM currency";
@@ -29,9 +29,9 @@ public class CurrencyDao {
         return currencies;
     }
     //get rate
-    public Currency getRate(String abbreviation) {
+    public double getRate(String abbreviation) {
         Connection conn = MariaDbConnection.getConnection();
-        String sql = "SELECT abbreviation, name, rate FROM currency WHERE abbreviation = ?";
+        String sql = "SELECT rate FROM currency WHERE abbreviation = ?";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -40,17 +40,12 @@ public class CurrencyDao {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                String abbr = rs.getString(1);
-                String name = rs.getString(2);
-                double rate = rs.getDouble(3);
-                return new Currency(abbr, name, rate);
+                return rs.getDouble(3);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return null;
+        return 0;
     }
-
 }
 
