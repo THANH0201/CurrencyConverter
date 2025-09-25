@@ -37,7 +37,7 @@ public class CurrencyController {
                 return;
             }
             // reference: usd
-            double result = amount * target.getRate()/source.getRate();
+            double result = amount * source.getRate()/target.getRate();
 
             view.getResult().setText(String.format("%.2f", result));
             view.getResultUnitLabel().setText(target.getAbbreviation());
