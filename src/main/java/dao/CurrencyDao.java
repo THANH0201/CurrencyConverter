@@ -13,6 +13,7 @@ public class CurrencyDao {
         List<Currency> currencies = new ArrayList<>();
 
         try {
+            assert conn != null;
             Statement s = conn.createStatement();
             ResultSet rs = s.executeQuery(sql);
 
@@ -34,13 +35,14 @@ public class CurrencyDao {
         String sql = "SELECT rate FROM currency WHERE abbreviation = ?";
 
         try {
+            assert conn != null;
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, abbreviation);
 
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                return rs.getDouble(3);
+                return rs.getDouble(1);
             }
         } catch (SQLException e) {
             e.printStackTrace();

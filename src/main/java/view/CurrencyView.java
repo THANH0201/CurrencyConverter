@@ -110,9 +110,6 @@ public class CurrencyView extends Application {
     public Button getConvert() {
         return convert;
     }
-    public Button getSearchRate() {
-        return rate;
-    }
     public Label getLabel() {
         return label;
     }
